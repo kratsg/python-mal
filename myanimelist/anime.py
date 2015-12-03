@@ -67,7 +67,7 @@ class Anime(media.Media):
         raise InvalidAnimeError(self.id)
 
     title_tag = anime_page.find(u'div', {'id': 'contentWrapper'}).find(u'h1')
-    if not title_tag.find(u'div'):
+    if not title_tag.find(u'span'):
       # otherwise, raise a MalformedAnimePageError.
       raise MalformedAnimePageError(self.id, anime_page, message="Could not find title div")
 
@@ -153,7 +153,7 @@ class Anime(media.Media):
       if not self.session.suppress_parse_exceptions:
         raise
 
-    return anime_info    
+    return anime_info
 
   def parse_characters(self, character_page):
     """Parses the DOM and returns anime character attributes in the sidebar.
@@ -233,9 +233,9 @@ class Anime(media.Media):
     except:
       if not self.session.suppress_parse_exceptions:
         raise
-    
+
     return anime_info
-    
+
   @property
   @loadable(u'load')
   def episodes(self):
