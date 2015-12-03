@@ -121,7 +121,7 @@ class Media(Base):
 
     try:
       title_tag = media_page.find(u'div', {'id': 'contentWrapper'}).find(u'h1')
-      if not title_tag.find(u'div'):
+      if not title_tag.find(u'span'):
         # otherwise, raise a MalformedMediaPageError.
         raise MalformedMediaPageError(self.id, media_page, message="Could not find title div")
     except:
@@ -562,7 +562,7 @@ class Media(Base):
     """Tags dict with :class:`myanimelist.tag.Tag` objects as keys, and the number of tags as values.
     """
     return self._popular_tags
-  
+
   @property
   @loadable(u'load')
   def synopsis(self):
